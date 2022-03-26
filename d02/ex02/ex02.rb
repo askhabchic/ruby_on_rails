@@ -65,16 +65,14 @@ class Dup_file < StandardError
 	end
 
 	def correct
-		@new_name = String.new(@name) + ".new"
-		# while 
+		@new_file = String.new(@name) + ".new"
 		begin
-			raise exc = Dup_file.new(@new_name) if File.file?("#{@new_name}.html")
-		rescue => exc
-			@new_name = exc.correct
+			raise error = Dup_file.new(@new_file) if File.file? "#{@new_file}.html"
+		rescue => error
+			@new_file = error.correct
 		end
-
-		File.new("#{@new_name}.html", "w+")
-		@new_name
+		File.open("#{@new_file}.html", "w+")
+		@new_file
 	end
 
 	def explain
